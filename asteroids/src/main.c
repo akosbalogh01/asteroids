@@ -41,52 +41,59 @@ void TIMER0_IRQHandler(void) {
  * field gen
  */
 
-//render_spaceship();
-//render_asteroids();
-//generate_map();
-
 int main(void) {
-	logic program = {0};
-	program.status = NEW_GAME;
-	/* Chip errata */
 	CHIP_Init();
-	/*Timer0 init*/
 	TIMER0_Init();
-	/*Uart0 init*/
 	UART0_Init();
 
-	//ezzel lehet elkezdeni a számolást az interrupthoz
-  	TIMER_Enable(TIMER0,true);
+	logic program = {0};
+	program.status = NEW_GAME;
 
+  	TIMER_Enable(TIMER0,true); //start interrupt timer
 
 	while (1) {
 		//copy status parameters, atomic copy
 		switch (program.status) {
 		case NEW_GAME:
 			render_text_newgame();
-			//if button pressed - request status params - move to RUNNING
-			//conditional break;
+			if (program.params.start) {
+				program.status    = RUNNING;
+				program.level 	  = NULL;
+				program.asteroids[0] = 0;
+				program.asteroids[1] = 0;
+				program.asteroids[2] = 0;
+				program.direction = DEFAULT_MOVE_DIRECTION;
+				program.spaceship = DEFAULT_SPACESHIP_POSITION;
+				program.movecycle = DEFAULT_MOVE_CYCLE;
+			}
+			else break;
+			/* no break */
+
 		case LEVEL_UP:
-			//decrement move cycle time
-			//generate new asteroid field
-			//no break;
+			program.movecycle = decrement(program.level, program.movecycle);
+			generate_field(&program);
+			/* no break */
+
 		case RUNNING:
-			//render everything
-				//render spaceship
-				//render asteroids
+			render_level(program.spaceship, program.asteroids);
 			render_score(program.level);
 			//timer
+
+			uint8_t i;
+			for (i = 0; i < 3; i++) if (program.spaceship == program.asteroids[i]) break;
+			if (i != 3) {program.status = GAME_OVER; break;}
+
 			//move spaceship
-			//collision detection
 			//if last segments, and still alive, LEVEL_UP
-			//if collided or ragequit, move to GAME_OVER
+			if (program.params.ragequit) program.status = GAME_OVER; // || failure
 			break;
+
 		case GAME_OVER:
 			render_score(program.level);
 			render_text_gameover();
-			//reset status variables
-			//if buttonpressed - request status params - move to NEW_GAME
+			if (program.params.start) program.status = NEW_GAME;
 			break;
+
 		default: //nagyon nagy a baj
 			break;
 		};
