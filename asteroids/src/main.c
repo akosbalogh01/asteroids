@@ -33,13 +33,6 @@ void TIMER0_IRQHandler(void) {
 	}
 	x++;
 }
-/* D:
- * interrupts + copy
- * timer
- * A:
- * rendering
- * field gen
- */
 
 int main(void) {
 	CHIP_Init();
