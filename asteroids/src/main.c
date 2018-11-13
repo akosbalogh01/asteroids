@@ -5,34 +5,9 @@
  *	render*:		turns out, every rendering function needs confirmation, regarding digit index order
  */
 
-#include "em_device.h"
 #include "em_chip.h"
-#include "em_gpio.h"
-#include "em_cmu.h"
-#include "em_usart.h"
-#include "em_timer.h"
 #include "game.h"
 #include "interrupt.h"
-
-uint8_t volatile ch;
-bool    volatile flag;
-uint8_t volatile x;
-
-void UART0_RX_IRQHandler(void) {
-   ch = USART_RxDataGet(UART0);
-   flag = true;
-   //Ack IRQ (automatically)
-   //USART_IntClear(UART0, USART_IF_RXDATAV);
-}
-void TIMER0_IRQHandler(void) {
-	TIMER_IntClear(TIMER0,TIMER_IF_OF);
-	//k�ldj�nk ki karaktert hogy l�ssuk működni
-	if(x>=10){
-		x=0;
-		USART_Tx(UART0, '0');
-	}
-	x++;
-}
 
 int main(void) {
 	CHIP_Init();
@@ -50,14 +25,14 @@ int main(void) {
 		case NEW_GAME:
 			render_text_newgame();
 			if (program.params.start) {
-				program.status    = RUNNING;
-				program.level 	  = NULL;
+				program.status    	 = RUNNING;
+				program.level 	  	 = NULL;
 				program.asteroids[0] = 0;
 				program.asteroids[1] = 0;
 				program.asteroids[2] = 0;
-				program.direction = DEFAULT_MOVE_DIRECTION;
-				program.spaceship = DEFAULT_SPACESHIP_POSITION;
-				program.movecycle = DEFAULT_MOVE_CYCLE;
+				program.direction 	 = DEFAULT_MOVE_DIRECTION;
+				program.spaceship 	 = DEFAULT_SPACESHIP_POSITION;
+				program.movecycle 	 = DEFAULT_MOVE_CYCLE;
 			}
 			else break;
 			/* no break */
@@ -74,11 +49,10 @@ int main(void) {
 
 			uint8_t i;
 			for (i = 0; i < 3; i++) if (program.spaceship == program.asteroids[i]) break;
-			if (i != 3) {program.status = GAME_OVER; break;}
+			if (i != 3 || program.params.ragequit) {program.status = GAME_OVER; break;}
 
 			//move spaceship
 			//if last segments, and still alive, LEVEL_UP
-			if (program.params.ragequit) program.status = GAME_OVER; // || failure
 			break;
 
 		case GAME_OVER:

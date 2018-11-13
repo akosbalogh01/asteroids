@@ -1,4 +1,4 @@
-/*	14 segment alphanumerical character display - character bitmap definitions
+/*	14/7 segment alphanumerical character display - character bitmap definitions
  * 	Akos Balogh @ BME-VIK
  * 	2018-11-13
  * 	v1.0
