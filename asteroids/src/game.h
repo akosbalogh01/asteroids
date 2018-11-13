@@ -31,6 +31,8 @@ typedef struct {
 // interrupts.c -> #include "game.h"
 
 void render_score(uint8_t);
-
+void render_text_clear();
+void render_text_newgame();
+void render_text_gameover();
 
 #endif //ASTEROIDS_GAME

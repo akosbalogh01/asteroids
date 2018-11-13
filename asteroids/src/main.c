@@ -1,16 +1,20 @@
+/*	development comments:
+ * 	render_score: 	it's possible the digit indexing is the other way around, than what is currently implemented,
+ * 				  	but i had no means of testing it (digit0 is on the left, or on the right?)
+ *	render_text_*:	the same question applies to any text rendering functions
+ *	render*:		turns out, every rendering function needs confirmation, regarding digit index order
+ */
+
 #include "em_device.h"
 #include "em_chip.h"
-#include "game.h"
-#include "interrupt.h"
-
-
 #include "em_gpio.h"
 #include "em_cmu.h"
 #include "em_usart.h"
 #include "em_timer.h"
+#include "game.h"
 #include "interrupt.h"
 
-uint8_t volatile   ch;
+uint8_t volatile ch;
 bool    volatile flag;
 uint8_t volatile x;
 
@@ -59,8 +63,8 @@ int main(void) {
 		//copy status parameters, atomic copy
 		switch (program.status) {
 		case NEW_GAME:
-			//render new game screen
-			//if buttonpressed - request status params - move to RUNNING
+			render_text_newgame();
+			//if button pressed - request status params - move to RUNNING
 			//conditional break;
 		case LEVEL_UP:
 			//decrement move cycle time
@@ -70,7 +74,7 @@ int main(void) {
 			//render everything
 				//render spaceship
 				//render asteroids
-				//render score
+			render_score(program.level);
 			//timer
 			//move spaceship
 			//collision detection
@@ -78,7 +82,8 @@ int main(void) {
 			//if collided or ragequit, move to GAME_OVER
 			break;
 		case GAME_OVER:
-			//render game over screen with flashing decimal points!
+			render_score(program.level);
+			render_text_gameover();
 			//reset status variables
 			//if buttonpressed - request status params - move to NEW_GAME
 			break;
