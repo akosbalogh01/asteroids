@@ -83,6 +83,7 @@ int main(void) {
 			//if buttonpressed - request status params - move to NEW_GAME
 			break;
 		default: //nagyon nagy a baj
+			break;
 		};
 	}
 

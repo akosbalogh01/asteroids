@@ -24,7 +24,7 @@ typedef struct {
 // D: interrupt function prototypes
 // interrupts.c -> #include "game.h"
 
-// A: render fucntion prototypes
+// A: render function prototypes
 
 
 #endif //ASTEROIDS_GAME

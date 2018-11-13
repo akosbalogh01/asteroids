@@ -1,0 +1,50 @@
+/*	14 segment alphanumerical character display - character bitmap definitions
+ * 	Akos Balogh @ BME-VIK
+ * 	2018-11-13
+ * 	v1.0
+ */
+
+#ifndef ASTEROIDS_CHARMAP
+#define ASTEROIDS_CHARMAP
+				  //-abcdefg
+#define CHARMAP_0 0x01111110
+#define CHARMAP_1 0x00110000
+#define CHARMAP_2 0x01101101
+#define CHARMAP_3 0x01111001
+#define CHARMAP_4 0x00110011
+#define CHARMAP_5 0x01011010
+#define CHARMAP_6 0x01011111
+#define CHARMAP_7 0x01110000
+#define CHARMAP_8 0x01111111
+#define CHARMAP_9 0x01111011
+
+					//--abcdefghjkmnpq
+#define CHARMAP_NUL 0x0000000000000000 //no segment enabled
+#define CHARMAP_A 	0x0011101100000000 //afebc
+#define CHARMAP_B 	0x0011111110001000 //afebcdgm
+#define CHARMAP_C 	0x0010011100000000 //afed
+#define CHARMAP_D 	0x0011111100000000 //afedcb
+#define CHARMAP_E 	0x0010011110000000 //afged
+#define CHARMAP_F 	0x0010001110000000 //afge
+#define CHARMAP_G 	0x0010111100001000 //afedcm
+#define CHARMAP_H 	0x0001101110001000 //fgebmc
+#define CHARMAP_I 	0x0000000000100010 //jp
+#define CHARMAP_J 	0x0001110000000000 //dcb
+#define CHARMAP_K 	0x0000001110010100 //fgekn
+#define CHARMAP_L 	0x0000011100000000 //fed
+#define CHARMAP_M 	0x0001101101100000 //fehjbc
+#define CHARMAP_N 	0x0001100110100100 //fehncb
+#define CHARMAP_O 	0x0011111100000000 //feabcd
+#define CHARMAP_P 	0x0011001110001000 //abmgfe
+#define CHARMAP_Q 	0x0011101100000100 //afedbcn
+#define CHARMAP_R 	0x0011001110001000 //abmgfen
+#define CHARMAP_S 	0x0010110110001000 //afgmcd
+#define CHARMAP_T 	0x0010000000100010 //ajp
+#define CHARMAP_U 	0x0001111100000000 //fedbc
+#define CHARMAP_V 	0x0000000001010010 //hpk
+#define CHARMAP_W 	0x0001101100000101 //feqncb
+#define CHARMAP_X 	0x0000000001010011 //hkqp
+#define CHARMAP_Y 	0x0000000001010010 //hkp
+#define CHARMAP_Z 	0x0010010000010001 //akqd
+
+#endif //ASTEROIDS_CHARMAP
