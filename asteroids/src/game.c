@@ -8,10 +8,6 @@
 #include "game.h"
 #include "interrupt.h"
 
-int decrement(int level, int cycle) {
-	return (cycle - (level * 50) > MINIMAL_MOVECYCLE) ? cycle -= level * 50 : cycle;
-};
-
 void initialize() {
 	CHIP_Init();
 	SegmentLCD_Init(false);
@@ -19,6 +15,10 @@ void initialize() {
 	UART0_Init();
 
 	TIMER_Enable(TIMER0, true);
+}
+
+int decrement(int level, int cycle) {
+	return (cycle - (level * 50) > MINIMAL_MOVECYCLE) ? cycle -= level * 50 : cycle;
 }
 
 void generate_field(logic* program) {
@@ -32,7 +32,7 @@ void generate_field(logic* program) {
 		temp = rand() % 6;
 		program->asteroids[i] += ((1 + temp) * 10);
 	}
-};
+}
 
 void spaceship_rotate(logic* program) {
 	register uint8_t temp = program->spaceship % 5;
@@ -40,10 +40,10 @@ void spaceship_rotate(logic* program) {
 
 	if (program->params.left && temp != 3) {
 		switch (temp) {
-		case 0:	program->spaceship = dec + 2; break;
-		case 1: program->spaceship = dec + 2; break;
-		case 2: program->spaceship = dec + 4; break;
-		case 4: program->spaceship = dec + 3; break;
+		case 0:	program->spaceship = dec + 2; program->orientation = -1; break;
+		case 1: program->spaceship = dec + 2; program->orientation = -1; break;
+		case 2: program->spaceship = dec + 4; program->orientation =  0; break;
+		case 4: program->spaceship = dec + 3; program->orientation = -1; break;
 		default: break;
 		};
 		program->params.left = 0;
@@ -52,10 +52,10 @@ void spaceship_rotate(logic* program) {
 
 	if (program->params.right && temp != 2) {
 		switch (temp) {
-		case 0: program->spaceship = dec + 3; break;
-		case 1: program->spaceship = dec + 3; break;
-		case 3: program->spaceship = dec + 4; break;
-		case 4: program->spaceship = dec + 2; break;
+		case 0: program->spaceship = dec + 3; program->orientation = 1; break;
+		case 1: program->spaceship = dec + 3; program->orientation = 1; break;
+		case 3: program->spaceship = dec + 4; program->orientation = 0; break;
+		case 4: program->spaceship = dec + 2; program->orientation = 1; break;
 		default: break;
 		};
 
@@ -71,10 +71,9 @@ int spaceship_move(logic* program) {
 	switch (temp) {
 	case 0: program->spaceship = ((dec + 1) * 10) + 0; break;
 	case 1: program->spaceship = ((dec + 1) * 10) + 1; break;
-	case 2: break;
-	case 3: break;
+	case 2: program->spaceship = (dec * 10) + 1; break;
+	case 3: program->spaceship = (dec * 10) - 1; break;
 	case 4: program->spaceship = ((dec + 1) * 10) + 4; break;
-	case 5: break;
 	default: break;
 	}
 
