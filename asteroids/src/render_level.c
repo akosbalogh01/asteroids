@@ -11,7 +11,7 @@ void render_level(uint8_t spaceship, uint8_t* asteroids) {
 		result[(asteroids[i] - (asteroids[i] % 10)) / 10] = asrmap[asteroids[i] % 10];
 	}
 
-	result[(spaceship - (spaceship % 10)) / 10] = asrmap[spaceship % 10];
+	result[(spaceship - (spaceship % 10)) / 10].raw |= asrmap[spaceship % 10].raw;
 
 	SegmentLCD_LowerSegments(result);
 
