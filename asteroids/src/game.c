@@ -11,7 +11,7 @@ void generate_field(logic* program) {
 
 	uint8_t i, temp;
 	for (i = 0; i < 3; i++) {
-		temp = rand() % 6;
+		temp = rand() % 5;
 		program->asteroids[i] += temp;
 		temp = rand() % 6;
 		program->asteroids[i] += (1 + temp) * 10;
@@ -19,7 +19,7 @@ void generate_field(logic* program) {
 };
 
 void spaceship_rotate(logic* program) {
-	register uint8_t temp = program->spaceship % 6;
+	register uint8_t temp = program->spaceship % 5;
 	register uint8_t dec  = (program->spaceship - temp) / 10;
 
 	if (program->params.left && temp != 3) {
@@ -28,7 +28,6 @@ void spaceship_rotate(logic* program) {
 		case 1: program->spaceship = dec + 2; break;
 		case 2: program->spaceship = dec + 4; break;
 		case 4: program->spaceship = dec + 3; break;
-		case 5: program->spaceship = dec + 4; break;
 		default: break;
 		};
 		program->params.left = 0;
@@ -41,7 +40,6 @@ void spaceship_rotate(logic* program) {
 		case 1: program->spaceship = dec + 3; break;
 		case 3: program->spaceship = dec + 4; break;
 		case 4: program->spaceship = dec + 2; break;
-		case 5: program->spaceship = dec + 4; break;
 		default: break;
 		};
 

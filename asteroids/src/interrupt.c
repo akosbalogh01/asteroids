@@ -25,24 +25,19 @@ void TIMER0_Init(void) {
 	  //init compare/capture to no action: mode no compare/capture/PWM
 	  TIMER_InitCC_TypeDef confCC=TIMER_INITCC_DEFAULT;
 	  TIMER_InitCC(TIMER0,0,&confCC);
-	  //set top buffer for time period
-	  uint16_t Timer0_Top = 0x00FF;
-	  TIMER_TopSet(TIMER0, Timer0_Top);
-	  //clear all interrupt flag
-	  TIMER_IntClear(TIMER0, _TIMER_IFC_MASK);
-	  //enable interrupt only on overflow(timer count up)(disable others)
-	  TIMER_IntDisable(TIMER0, _TIMER_IEN_MASK);
-	  TIMER_IntEnable(TIMER0, TIMER_IEN_OF);
+
+	  TIMER_TopSet(TIMER0, 0xFFFF); 				//timer maximum
+	  TIMER_IntClear(TIMER0, _TIMER_IFC_MASK);		//clear all interrupt flags
+	  TIMER_IntDisable(TIMER0, _TIMER_IEN_MASK);	//disable all timer interrupts
+	  TIMER_IntEnable(TIMER0, TIMER_IEN_OF);		//enable timer overflow interrupt
 	  NVIC_EnableIRQ(TIMER0_IRQn);
 }
 
 void UART0_Init(void) {
-	  //ena clock gpio (first!)(without clock cant be modified)
-	  CMU_ClockEnable(cmuClock_GPIO, true);
+	  CMU_ClockEnable(cmuClock_GPIO, true);	//enable GPIO clock
 	  //pass uart thru
 	  GPIO_PinModeSet(gpioPortF, 7, gpioModePushPull, 1);
-	  //ena uart clock
-	  CMU_ClockEnable(cmuClock_UART0, true);
+	  CMU_ClockEnable(cmuClock_UART0, true);	//enable UART clock
 	  //init uart0 baud:11500, frame: 8N1
 	  USART_InitAsync_TypeDef conf=USART_INITASYNC_DEFAULT; //van egy default ertek es mi is pont azt szeretnenk egyebkent
 		conf.autoCsEnable=0;
@@ -75,10 +70,10 @@ void UART0_Init(void) {
 void UART0_RX_IRQHandler(void) {
    ch = USART_RxDataGet(UART0); //Ack IRQ (automatically)
    switch (ch){
-   case 'j' : irq_var.right=1; irq_var.left=0; break;
-   case 'b' : irq_var.left=1;  irq_var.right=0; break;
-   case 's' : irq_var.start=1; break;
-   case 'r' : irq_var.ragequit=1; break;
+   case 'j' : irq_var.right 	= 1; irq_var.left  = 0; break;
+   case 'b' : irq_var.left  	= 1; irq_var.right = 0; break;
+   case 's' : irq_var.start 	= 1; break;
+   case 'r' : irq_var.ragequit  = 1; break;
    default: break;
    }
 

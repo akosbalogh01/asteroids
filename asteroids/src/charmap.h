@@ -1,11 +1,13 @@
 /*	14/7 segment alphanumerical character display - character bitmap definitions
  * 	Akos Balogh @ BME-VIK
  * 	2018-11-13
- * 	v1.0
+ * 	v1.1
  */
 
 #ifndef ASTEROIDS_CHARMAP
 #define ASTEROIDS_CHARMAP
+
+/* deprecated - replaced by SegmentLCD_Write(<string>);
 				    //-gfedcba
 #define CHARMAP_NNL	0b00000000
 #define CHARMAP_0 	0b00111111
@@ -47,13 +49,12 @@
 #define CHARMAP_X 	0b0000000001010011 //hkqp
 #define CHARMAP_Y 	0b0000000001010010 //hkp
 #define CHARMAP_Z 	0b0010010000010001 //akqd
-
+*/
 #define CHARMAP_ASR0 0b0000000000000001 //a
 #define CHARMAP_ASR1 0b0000000000001000 //d
 #define CHARMAP_ASR2 0b0000000000010000 //e
 #define CHARMAP_ASR3 0b0000000000100000 //f
-#define CHARMAP_ASR4 0b0000000001000000 //g
-#define CHARMAP_ASR5 0b0000010000000000 //m
+#define CHARMAP_ASR4 0b0000010001000000 //g
 
 
 #endif //ASTEROIDS_CHARMAP
