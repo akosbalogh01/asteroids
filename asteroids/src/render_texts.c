@@ -5,13 +5,13 @@
 lowerseg result[SEGMENT_LCD_NUM_OF_LOWER_CHARS];
 
 void render_text_newgame() {
-	result[0].raw = CHARMAP_N;
-	result[1].raw = CHARMAP_E;
-	result[2].raw = CHARMAP_W;
-	result[3].raw = CHARMAP_G;
-	result[4].raw = CHARMAP_A;
-	result[5].raw = CHARMAP_M;
-	result[6].raw = CHARMAP_E;
+	result[0].raw = CHARMAP_NUL;
+	result[1].raw = CHARMAP_NUL;
+	result[2].raw = CHARMAP_NUL;
+	result[3].raw = CHARMAP_NUL;
+	result[4].raw = CHARMAP_NUL;
+	result[5].raw = CHARMAP_NUL;
+	result[6].raw = CHARMAP_NUL;
 
 	SegmentLCD_LowerSegments(result);
 };

@@ -7,8 +7,13 @@
 #ifndef ASTEROIDS_INTERRUPT
 #define ASTEROIDS_INTERRUPT
 
-#include "em_usart.h"
-#include "em_timer.h"
+#include "stdbool.h"
+#include "game.h"
+
+uint8_t 		volatile ch;
+bool    		volatile flag;
+uint8_t 		volatile x;
+IRQ_VARIABLES 	volatile irq_var;
 
 void TIMER0_Init(void);
 void TIMER0_IRQHandler(void);

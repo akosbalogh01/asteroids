@@ -14,7 +14,8 @@ void render_score(uint8_t level) {
 		result[i] = numbers[temp];
 		level -= temp;
 		level /= 10;
-	} while(i < 3);
+		i++;
+	} while(i < 4);
 
 	SegmentLCD_UpperSegments(result);
 };
