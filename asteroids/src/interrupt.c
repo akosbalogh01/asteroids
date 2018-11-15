@@ -26,7 +26,7 @@ void TIMER0_Init(void) {
 	  TIMER_InitCC_TypeDef confCC=TIMER_INITCC_DEFAULT;
 	  TIMER_InitCC(TIMER0,0,&confCC);
 
-	  TIMER_TopSet(TIMER0, 0xFFFF); 				//timer maximum
+	  TIMER_TopSet(TIMER0, DEFAULT_MOVE_CYCLE); 				//timer maximum
 	  TIMER_IntClear(TIMER0, _TIMER_IFC_MASK);		//clear all interrupt flags
 	  TIMER_IntDisable(TIMER0, _TIMER_IEN_MASK);	//disable all timer interrupts
 	  TIMER_IntEnable(TIMER0, TIMER_IEN_OF);		//enable timer overflow interrupt

@@ -50,10 +50,12 @@ int main(void) {
 
 		case RUNNING:;
 			uint8_t i;
+			for (i = 0; i < 3; i++) {if (program.asteroids[i] == program.spaceship) break;}
+			if (i != 3) {program.status = GAME_OVER; break;}
 			SegmentLCD_Number(program.level);
 
-			render_level(program.spaceship, program.asteroids);
 			spaceship_rotate(&program);
+			render_level(program.spaceship, program.asteroids);
 
 			if (flag) {
 				switch (spaceship_move(&program)) {
@@ -65,7 +67,6 @@ int main(void) {
 				flag = 0;
 			}
 
-			//for (i = 0; program.status == RUNNING && i < 3; i++) if (program.spaceship == program.asteroids[i]) break;
 			if (program.params.ragequit) {
 				program.params.ragequit = 0;
 				program.status = GAME_OVER;
