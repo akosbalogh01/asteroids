@@ -27,7 +27,7 @@ typedef struct {						//variables modified by global interrupts, enabled for one
 typedef struct {						//game descriptor data structure
 	game_status status;
 	IRQ_VARIABLES params;
-	int	     level;						//current level
+	uint16_t level;						//current level
 	uint8_t  asteroids[3]; 				//asteroid indexes
 	uint8_t  spaceship;					//spaceship index
 	s_ori	 orientation; 				//spaceship orientation
@@ -43,9 +43,9 @@ int  decrement(int, int);				//decrements move cycle, based on level, and previo
 void generate_field(logic*);			//generates asteroid field #todo: do not allow repeated selection of the same segment
 
 void render_score(uint8_t);				//renders level on <upper> segment LCD
-void render_text_clear();				//deprecated
-void render_text_newgame();				//deprecated
-void render_text_gameover();			//deprecated
+void render_text_clear();				//deprecated, project is now using built in SegmentLCD functions
+void render_text_newgame();				//deprecated, -
+void render_text_gameover();			//deprecated, -
 void render_level(uint8_t, uint8_t*);	//renders spaceship and asteroids
 
 #endif //ASTEROIDS_GAME

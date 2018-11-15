@@ -1,4 +1,4 @@
-/*	Interrupt weak function redefinitions
+/*	Interrupt weak function redefinitions, other interrupt related function prototypes
  *	Daniel Balogh @ BME-VIK
  *	2018-11-10
  *	v1.0
