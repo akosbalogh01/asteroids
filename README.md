@@ -17,5 +17,5 @@ On the microcontroller's integrated LCD display, 7 alphanumerical digits are ava
 
 ###### Legacy code
 
-Even though in the current version, the built-in text and number displaying functions are used, the initial release used the university provided LCD control functions, which controls individual segments. As such, he character and number displaying bitmaps were coded, but are now not used. These bitmaps, and functions are marked as deprecated in the code.
+Even though in the current version, the built-in text and number displaying functions are used, the initial release used the university provided LCD control functions, which controls individual segments. As such, the character and number displaying bitmaps were coded, but are now not used. These bitmaps and the corresponding functions are marked as deprecated in the code.
 
